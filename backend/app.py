@@ -73,12 +73,22 @@ def index():
                                                        copy_X=copy_X)
             elif model_type == 'random_forest_classification':
                 n_estimators = int(request.form['n_estimators'])
+                max_depth = int(request.form['max_depth'])
+                min_samples_split = int(request.form['min_samples_split'])
+                min_samples_leaf = int(request.form['min_samples_leaf'])
                 model = random_forest_classification_from_csv(os.path.join(app.config['UPLOAD_FOLDER'], filename),
-                                                              target_column, n_estimators=n_estimators)
+                                                              target_column, n_estimators=n_estimators,
+                                                              max_depth=max_depth, min_samples_split=min_samples_split,
+                                                              min_samples_leaf=min_samples_leaf)
             elif model_type == 'random_forest_regression':
                 n_estimators = int(request.form['n_estimators'])
+                max_depth = int(request.form['max_depth'])
+                min_samples_split = int(request.form['min_samples_split'])
+                min_samples_leaf = int(request.form['min_samples_leaf'])
                 model = random_forest_regression_from_csv(os.path.join(app.config['UPLOAD_FOLDER'], filename),
-                                                          target_column, n_estimators=n_estimators)
+                                                          target_column, n_estimators=n_estimators,
+                                                          max_depth=max_depth, min_samples_split=min_samples_split,
+                                                          min_samples_leaf=min_samples_leaf)
             elif model_type == 'decision_tree_classification':
                 model = decision_tree_classification_from_csv(os.path.join(app.config['UPLOAD_FOLDER'], filename),
                                                               target_column)
