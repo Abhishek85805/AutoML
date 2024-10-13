@@ -109,12 +109,21 @@ def index():
                                                           min_samples_leaf=min_samples_leaf)
             elif model_type == 'svm_classification':
                 kernel = request.form['kernel']
-                model = svm_classification_from_csv(os.path.join(app.config['UPLOAD_FOLDER'], filename), target_column,
-                                                    kernel=kernel)
+                C = float(request.form['C'])
+                degree = int(request.form['degree'])
+                gamma = request.form['gamma']
+                probability = request.form['probability'] == 'True'
+                model = svm_classification_from_csv(os.path.join(app.config['UPLOAD_FOLDER'], filename),
+                                                    target_column, kernel=kernel, C=C, degree=degree, gamma=gamma,
+                                                    probability=probability)
             elif model_type == 'svm_regression':
                 kernel = request.form['kernel']
-                model = svm_regression_from_csv(os.path.join(app.config['UPLOAD_FOLDER'], filename), target_column,
-                                                kernel=kernel)
+                C = float(request.form['C'])
+                degree = int(request.form['degree'])
+                gamma = request.form['gamma']
+                epsilon = float(request.form['epsilon'])
+                model = svm_regression_from_csv(os.path.join(app.config['UPLOAD_FOLDER'], filename),
+                                                target_column, kernel=kernel, C=C, degree=degree, gamma=gamma, epsilon=epsilon)
 
             # Render the results template
             return render_template('results.html', model=model, model_type=model_type)
