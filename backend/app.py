@@ -90,11 +90,23 @@ def index():
                                                           max_depth=max_depth, min_samples_split=min_samples_split,
                                                           min_samples_leaf=min_samples_leaf)
             elif model_type == 'decision_tree_classification':
+                criterion = request.form['criterion']
+                max_depth = int(request.form['max_depth'])
+                min_samples_split = int(request.form['min_samples_split'])
+                min_samples_leaf = int(request.form['min_samples_leaf'])
                 model = decision_tree_classification_from_csv(os.path.join(app.config['UPLOAD_FOLDER'], filename),
-                                                              target_column)
+                                                              target_column, criterion=criterion, max_depth=max_depth,
+                                                              min_samples_split=min_samples_split,
+                                                              min_samples_leaf=min_samples_leaf)
             elif model_type == 'decision_tree_regression':
+                criterion = request.form['criterion']
+                max_depth = int(request.form['max_depth'])
+                min_samples_split = int(request.form['min_samples_split'])
+                min_samples_leaf = int(request.form['min_samples_leaf'])
                 model = decision_tree_regression_from_csv(os.path.join(app.config['UPLOAD_FOLDER'], filename),
-                                                          target_column)
+                                                          target_column, criterion=criterion, max_depth=max_depth,
+                                                          min_samples_split=min_samples_split,
+                                                          min_samples_leaf=min_samples_leaf)
             elif model_type == 'svm_classification':
                 kernel = request.form['kernel']
                 model = svm_classification_from_csv(os.path.join(app.config['UPLOAD_FOLDER'], filename), target_column,
