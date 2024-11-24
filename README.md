@@ -5,13 +5,13 @@
 
 ## Introduction
 
-ML-Forge is an open-source project that aims to simplify the machine learning process for everyone. Our goal is to provide a user-friendly and accessible platform for data scientists, researchers, and developers to build, train, and deploy machine learning models with ease.
+AutoML is an open-source project that aims to simplify the machine learning process for everyone. Our goal is to provide a user-friendly and accessible platform for data scientists, researchers, and developers to build, train, and deploy machine learning models with ease.
 
 ## Features
 
-* **Automated Machine Learning**: ML-Forge provides a range of automated machine learning algorithms that can be used to build and train models with minimal effort.
+* **Automated Machine Learning**: AutoML provides a range of automated machine learning algorithms that can be used to build and train models with minimal effort.
 * **Data Preprocessing**: Our platform includes a range of data preprocessing tools that can be used to clean, transform, and prepare data for machine learning.
-* **Model Evaluation**: ML-Forge provides a range of model evaluation metrics that can be used to assess the performance of machine learning models.
+* **Model Evaluation**: AutoML provides a range of model evaluation metrics that can be used to assess the performance of machine learning models.
 * **Model Deployment**: Our platform includes a range of model deployment options that can be used to deploy machine learning models in a production-ready environment.
 
 ## Getting Started
