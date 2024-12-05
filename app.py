@@ -150,7 +150,8 @@ def train_model_endpoint():
                 mimetype='application/octet-stream'
             )
 
-            response.headers['Report'] = report  # Include in headers
+            response.headers['Content-Disposition'] = f'attachment; filename={model_filename}'
+            response.headers['Report'] = report  # Include report in headers if required
             return response
             # return jsonify({
             #     'status': 'ok',
