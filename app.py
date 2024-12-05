@@ -21,6 +21,8 @@ UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+training_report = None
+
 
 # check for allowed file type (only csv supported)
 def allowed_file(filename):
@@ -44,7 +46,7 @@ def train_model(model_type, file_path, target_column, impute_strategy, params):
 
 
 @app.route('/')
-def hello_world():  # put application's code here
+def hello_world():
     return 'Hello World!'
 
 
@@ -140,6 +142,7 @@ def train_model_endpoint():
             # model, report = train_model(model_type, file_path, target_column, impute_strategy, params)
             # model_filename = 'trained_model.pkl'
             model, report = train_model(model_type, file_path, target_column, impute_strategy, params)
+            training_report = report
             model_filename = 'trained_model.pkl'
             model_filepath = os.path.join(app.config['UPLOAD_FOLDER'], model_filename)
             joblib.dump(model, os.path.join(app.config['UPLOAD_FOLDER'], model_filename))
@@ -152,13 +155,8 @@ def train_model_endpoint():
 
             response.headers['Content-Disposition'] = f'attachment; filename={model_filename}'
             # sanitized_report = report.replace('\n', '').replace('\r', '')
-            # response.headers['Report'] = report  # Include in headers
+            # response.headers['Report'] = sanitized_report  # Include report in headers if required
             return response
-            # return jsonify({
-            #     'status': 'ok',
-            #     'model': model_filename,
-            #     'report': report
-            # }), 200
 
         except Exception as e:
             return jsonify({
@@ -172,6 +170,14 @@ def train_model_endpoint():
             'status': 'error',
             'message': str(e)
         }), 400
+
+
+@app.route('/train/getReport', methods=['GET'])
+def get_report():
+    if training_report is None:
+        return jsonify({'status': 'error', 'message': 'No report available'}), 404
+
+    return jsonify({'status': 'ok', 'report': training_report}), 200
 
 
 if __name__ == '__main__':
