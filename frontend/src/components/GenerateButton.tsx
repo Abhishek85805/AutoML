@@ -243,12 +243,12 @@ function GenerateButton() {
   }
 
   return (
-    <div className="h-[4rem] box-border flex justify-center items-center">
+    <div className="h-[4rem] box-border flex justify-center items-center px-[0.6rem]">
         <button 
-        className="bg-white text-black px-[1.3rem] py-[0.4rem] rounded-md font-semibold"
+        className="bg-[#757575] w-full text-black px-[1.3rem] py-[0.4rem] rounded-md font-semibold"
         onClick={handleClick}
         >
-          Generate
+          Train Model
         </button>
     </div>
   )

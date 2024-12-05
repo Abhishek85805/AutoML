@@ -1,5 +1,7 @@
 import React from 'react';
 import { toast } from 'sonner';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 interface DownloadButtonProps {
   blobData: Blob | null;
@@ -28,19 +30,16 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({ blobData, fileName }) =
   };
 
   return (
-    <button onClick={handleDownload} style={buttonStyles}
-    className={`${!blobData ? 'bg-[#757575] text-black' : 'bg-[#2B3BFF] text-[#ffff]'} font-bold hover:scale-105 transition-all ease-linear`}>
-      Download File
-    </button>
+    <div
+    className={`${!blobData ? 'bg-[#757575] text-black' : 'bg-[#2B3BFF] text-[#ffff]'} font-bold hover:scale-105 transition-all duration-200 ease-linear rounded-md px-[1.5rem] py-[15px] border-none cursor-pointer text-[1.5rem] `}
+    onClick={handleDownload}
+    >
+      <FontAwesomeIcon icon={faDownload} />
+      <button className='pl-[5px]'>
+        Download File
+      </button>
+    </div>
   );
-};
-
-// Optional: Inline button styling
-const buttonStyles: React.CSSProperties = {
-  padding: '10px 20px',
-  border: 'none',
-  borderRadius: '5px',
-  cursor: 'pointer',
 };
 
 export default DownloadButton;
