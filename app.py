@@ -44,7 +44,7 @@ def train_model(model_type, file_path, target_column, impute_strategy, params):
 
 
 @app.route('/')
-def hello_world():  # put application's code here
+def hello_world():
     return 'Hello World!'
 
 
@@ -151,7 +151,8 @@ def train_model_endpoint():
             )
 
             response.headers['Content-Disposition'] = f'attachment; filename={model_filename}'
-            response.headers['Report'] = report  # Include report in headers if required
+            sanitized_report = report.replace('\n', '').replace('\r', '')
+            response.headers['Report'] = sanitized_report  # Include report in headers if required
             return response
             # return jsonify({
             #     'status': 'ok',
