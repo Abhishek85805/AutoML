@@ -1,6 +1,6 @@
 import os
 import joblib
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 
@@ -137,14 +137,26 @@ def train_model_endpoint():
             }), 400
 
         try:
+            # model, report = train_model(model_type, file_path, target_column, impute_strategy, params)
+            # model_filename = 'trained_model.pkl'
             model, report = train_model(model_type, file_path, target_column, impute_strategy, params)
             model_filename = 'trained_model.pkl'
+            model_filepath = os.path.join(app.config['UPLOAD_FOLDER'], model_filename)
             joblib.dump(model, os.path.join(app.config['UPLOAD_FOLDER'], model_filename))
-            return jsonify({
-                'status': 'ok',
-                'model': model_filename,
-                'report': report
-            }), 200
+            response = send_file(
+                model_filepath,
+                as_attachment=True,
+                download_name=model_filename,
+                mimetype='application/octet-stream'
+            )
+
+            response.headers['Report'] = report  # Include in headers
+            return response
+            # return jsonify({
+            #     'status': 'ok',
+            #     'model': model_filename,
+            #     'report': report
+            # }), 200
 
         except Exception as e:
             return jsonify({
